@@ -30,7 +30,7 @@ import os
 import platform
 import sys
 from pathlib import Path
-
+import numpy as np
 import torch
 
 FILE = Path(__file__).resolve()
@@ -143,6 +143,8 @@ def run(
             s += '%gx%g ' % im.shape[2:]  # print string
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]  # normalization gain whwh
             imc = im0.copy() if save_crop else im0  # for save_crop
+            
+            im0 = np.zeros_like(im0)
             annotator = Annotator(im0, line_width=line_thickness, example=str(names))
             if len(det):
                 # Rescale boxes from img_size to im0 size
